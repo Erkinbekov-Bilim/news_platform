@@ -34,12 +34,22 @@ export class Repository<T> {
         };
   }
 
-  async deleteItem(id: string): Promise<boolean> {
+  async getByField(fieldName: string, value: string): Promise<T[]> {
     const connection = await mysqlDb.getConnection();
     const [result] = await connection.query(
-      `DELETE FROM ?? WHERE ID = ?`,
-      [this.tableName, id],
+      `SELECT ${this.typeField} FROM ?? WHERE ${fieldName} = ?`,
+      [this.tableName, value],
     );
+
+    return result as T[];
+  }
+
+  async deleteItem(id: string): Promise<boolean> {
+    const connection = await mysqlDb.getConnection();
+    const [result] = await connection.query(`DELETE FROM ?? WHERE ID = ?`, [
+      this.tableName,
+      id,
+    ]);
     const resultHeader: QueryResult = result as ResultSetHeader;
 
     return resultHeader.affectedRows > 0;
