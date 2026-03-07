@@ -13,6 +13,10 @@ app.use(express.json());
 dotenv.config();
 app.use('/api/', apiRoute);
 
+app.use((_req, res) => {
+  return res.status(404).json({ error: 'Not found' });
+});
+
 const run = async () => {
   await mysqlDb.init();
   app.listen(PORT, () => {
