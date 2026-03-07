@@ -3,11 +3,20 @@ export interface INews {
   title: string;
   content: string | null;
   image: string | null;
-  publication_date: string;
 }
 
-export type INewsWithoutId = Omit<INews, 'id'>;
-export type INewsWithoutContent = Omit<INews, 'content'>;
+export interface INewsMutation {
+  title: string;
+  content: string | null;
+  image: File | null;
+}
+
+export interface INewsWithoutContent {
+  id: number;
+  title: string;
+  image: string | null;
+  publication_date: string;
+}
 
 export interface IComment {
   id: number;
