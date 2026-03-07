@@ -11,11 +11,28 @@ const newsRouter: Router = express.Router();
 
 newsRouter.get('/', async (_req: Request, res: Response) => {
   try {
-    const repository = new Repository<INewsWithoutContent>('news', ['id', 'title', 'image', 'publication_date']);
+    const repository = new Repository<INewsWithoutContent>('news', [
+      'id',
+      'title',
+      'image',
+      'publication_date',
+    ]);
     const news = await repository.getAll();
     return res.json(news);
   } catch (error) {
     console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+newsRouter.get('/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const repository = new Repository<INews>('news', '*');
+    const news = await repository.getById(id as string);
+    return res.json(news);
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -56,12 +73,34 @@ newsRouter.post(
 
       const createdNews = insertedNews as INews[];
 
-      res.status(201).json(...createdNews);
+      return res.json(...createdNews);
     } catch (error) {
       next(error);
       return res.status(500).json({ error: 'Internal server error' });
     }
   },
 );
+
+newsRouter.delete('/:id', async (req: Request, res: Response) => {
+  try {
+    const { id }= req.params;
+    const repository = new Repository<boolean>('news', null);
+    const isDeleted: boolean = await repository.deleteItem(id as string);
+
+    if (isDeleted) {
+      return res.json({
+        message: 'News deleted successfully',
+      });
+    } else {
+      return res.status(404).json({
+        error: 'News not found',
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error: 'Internal server error',
+    });
+  }
+});
 
 export default newsRouter;
