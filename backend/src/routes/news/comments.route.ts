@@ -18,10 +18,6 @@ commentsRouter.get('/', async (req: Request, res: Response) => {
     if (news_id) {
       const filteredComments = await repository.getByField('news_id', news_id);
 
-      if (filteredComments.length === 0) {
-        return res.status(404).json({ error: 'Comments not found' });
-      }
-
       return res.json(filteredComments);
     } else {
       return res.json(comments);
