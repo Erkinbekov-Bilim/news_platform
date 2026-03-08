@@ -191,6 +191,8 @@ const PostForm = () => {
                       sx={{
                         margin: '0 auto',
                         padding: 3,
+                        borderRadius: 5,
+                        overflow: 'hidden',
                       }}
                     >
                       <FileInput
