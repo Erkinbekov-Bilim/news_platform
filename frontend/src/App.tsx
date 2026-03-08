@@ -4,6 +4,7 @@ import FullPost from './features/news/FullPost/FullPost';
 import Home from './features/news/Home/Home';
 import MainLayout from './features/news/layout/MainLayout';
 import { Route, Routes } from 'react-router-dom';
+import NotFound from './UI/NotFound/NotFound';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
             <Route index element={<Comments />} />
           </Route>
           <Route path="/news/add" element={<PostForm />} />
+          <Route path="*" element={<NotFound/>} />
         </Routes>
       </MainLayout>
     </>
