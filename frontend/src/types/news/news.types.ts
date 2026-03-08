@@ -20,7 +20,7 @@ export interface INewsWithoutContent {
 }
 
 export interface IComment {
-  id: number;
+  id: string;
   news_id: string;
   author: string;
   content: string;
