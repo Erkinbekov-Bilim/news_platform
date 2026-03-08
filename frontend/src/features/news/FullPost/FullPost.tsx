@@ -12,6 +12,7 @@ import { grey } from '@mui/material/colors';
 import Loader from '../../../UI/Loader/Loader';
 import { getImageURL } from '../helper/renderImage';
 import { formatDate } from '../../../utils/formatDate';
+import { clearPost } from '../posts/posts.slice';
 
 const FullPost = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,6 +25,10 @@ const FullPost = () => {
   useEffect(() => {
     if (id) {
       dispatch(getPostById({ id }));
+    }
+
+    return () => {
+      dispatch(clearPost());
     }
   }, [dispatch, id]);
 

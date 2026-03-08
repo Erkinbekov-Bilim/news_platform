@@ -30,7 +30,11 @@ const initialState: IPostsState = {
 export const postsSlice = createSlice({
   name: 'posts',
   initialState,
-  reducers: {},
+  reducers: {
+    clearPost: (state) => {
+      state.post = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getPosts.pending, (state) => {
       state.loading.fetchLoading = true;
@@ -81,3 +85,4 @@ export const postsSlice = createSlice({
 });
 
 export const postsReducer = postsSlice.reducer;
+export const { clearPost } = postsSlice.actions;
