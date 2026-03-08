@@ -1,5 +1,5 @@
 import { Box, CardMedia, Typography } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks/reduxHooks';
 import {
   selectIsError,
@@ -29,7 +29,7 @@ const FullPost = () => {
 
     return () => {
       dispatch(clearPost());
-    }
+    };
   }, [dispatch, id]);
 
   const renderContent = () => {
@@ -121,6 +121,7 @@ const FullPost = () => {
   return (
     <>
       <Box>{renderContent()}</Box>
+      <Outlet />
     </>
   );
 };

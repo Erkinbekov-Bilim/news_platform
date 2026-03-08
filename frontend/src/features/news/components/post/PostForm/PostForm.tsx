@@ -35,8 +35,9 @@ const PostForm = () => {
   });
 
   const onSubmit = (data: INewsMutation) => {
-    dispatch(createPost(data)).then(() => navigate('/'));
-    reset(defaultValues);
+    dispatch(createPost(data))
+      .then(() => reset())
+      .then(() => navigate('/'));
   };
 
   const onChangeFileHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -110,11 +111,6 @@ const PostForm = () => {
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
                   />
-                  {fieldState.error && (
-                    <Typography color="error" variant="body2" component={'p'}>
-                      {fieldState.error.message}
-                    </Typography>
-                  )}
                 </>
               )}
             />

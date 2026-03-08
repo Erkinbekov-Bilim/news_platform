@@ -1,3 +1,4 @@
+import Comments from './features/news/components/comment/Comments/Comments';
 import PostForm from './features/news/components/post/PostForm/PostForm';
 import FullPost from './features/news/FullPost/FullPost';
 import Home from './features/news/Home/Home';
@@ -10,7 +11,9 @@ const App = () => {
       <MainLayout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/news/:id" element={<FullPost />} />
+          <Route path="/news/:id" element={<FullPost />}>
+            <Route index element={<Comments />} />
+          </Route>
           <Route path="/news/add" element={<PostForm />} />
         </Routes>
       </MainLayout>
